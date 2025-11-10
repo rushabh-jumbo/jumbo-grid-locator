@@ -3,7 +3,7 @@ import requests
 from fastapi import FastAPI, HTTPException
 
 # Replace these after pushing to GitHub
-CSV_URL = "https://raw.githubusercontent.com/<username>/<repo>/main/JumboBoxes.csv"
+CSV_URL = "https://raw.githubusercontent.com/rushabh-jumbo/jumbo-grid-locator/main/JumboBoxes.csv"
 
 app = FastAPI()
 
