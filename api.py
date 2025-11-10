@@ -2,8 +2,7 @@ import csv
 import requests
 from fastapi import FastAPI, HTTPException
 
-# Replace these after pushing to GitHub
-CSV_URL = "https://raw.githubusercontent.com/rushabh-jumbo/jumbo-grid-locator/main/JumboBoxes.csv"
+CSV_URL = "https://raw.githubusercontent.com/rushabh-jumbo/jumbo-grid-locator/main/JB-grids.csv"
 
 app = FastAPI()
 
@@ -21,21 +20,16 @@ def locate_box(lat, lon):
             lon < float(row["MaxLon"])
         ):
             return row["BoxID"]
-    return ""
 
+    return ""
 
 @app.get("/locate")
 def locate(coords: str):
-    """
-    Use like:
-    /locate?coords=12.91614,77.67739
-    """
     try:
         lat_str, lon_str = coords.split(",")
         lat = float(lat_str.strip())
         lon = float(lon_str.strip())
     except:
-        raise HTTPException(status_code=400, detail="Invalid coords format. Use 'lat,lon'.")
+        raise HTTPException(status_code=400, detail="Invalid format. Use: /locate?coords=lat,lon")
 
-    box = locate_box(lat, lon)
-    return {"box": box}
+    return {"box": locate_box(lat, lon)}
